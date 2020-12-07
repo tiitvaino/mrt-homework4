@@ -36,8 +36,6 @@ router.post('/', authorize,  (request, response) => {
         "media": request.body.media
     }
 
-
-    console.log(request.currentUser);
     PostModel.create(params, () => {
         response.status(201).json();
     });
