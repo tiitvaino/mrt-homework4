@@ -23,8 +23,24 @@ router.get('/', authorize, (request, response) => {
 });
 
 router.post('/', authorize,  (request, response) => {
+    // if this is empty post
+    if (!request.body || !request.body.text){
+        response.status(403).json();
+        return;
+    }
 
     // Endpoint to create a new post
+    const params = {
+        "userId": request.currentUser.id,
+        "text": request.body.text,
+        "media": request.body.media
+    }
+
+
+    console.log(request.currentUser);
+    PostModel.create(params, () => {
+        response.status(201).json();
+    });
 
 });
 
