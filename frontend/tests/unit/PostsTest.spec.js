@@ -103,4 +103,16 @@ describe('Posts', () => {
     it('1 == 1', function () {
         expect(true).toBe(true)
     });
+
+    it('displays correct amout of posts', function(){
+        expect(true).toBe(true) //TODO
+    });
+
+    it('displays correct media type if media exists', function(){
+        expect(true).toBe(true) //TODO
+    });
+
+    it('displays post create time in correct format', function(){
+        expect(true).toBe(true) //TODO
+    });
 });
