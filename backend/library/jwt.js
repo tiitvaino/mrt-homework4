@@ -15,6 +15,13 @@ const jwt = {
         } catch (err) {
             return false;
         }
+    },
+    getIDfromToken: (token) => {
+        try {
+            return JsonWebToken.decode(token).id;
+        } catch (err) {
+            return false;
+        }
     }
 };
 

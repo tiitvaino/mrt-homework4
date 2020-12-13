@@ -1,4 +1,5 @@
 const UserModel = require('../models/UserModel');
+const jwt = require('../library/jwt');
 
 module.exports = (request, response, next) => {
 
@@ -9,8 +10,10 @@ module.exports = (request, response, next) => {
         decoded user from access token.
     */
 
-    if (request.headers.authorization) {
-        UserModel.getById(1, (user) => {
+
+    let token = request.headers.authorization.substring(7);
+    if (jwt.verifyAccessToken(token)) {
+        UserModel.getById(jwt.getIDfromToken(token), (user) => {
             request.currentUser = user;
             next();
         });
@@ -18,7 +21,7 @@ module.exports = (request, response, next) => {
         // if there is no authorization header
 
         return response.status(403).json({
-            message: 'Invalid token'
+            message: "Invalid token"
         });
     }
 };
