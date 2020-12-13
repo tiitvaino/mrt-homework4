@@ -61,9 +61,18 @@ router.put('/:postId/likes', authorize, (request, response) => {
 });
 
 router.delete('/:postId/likes', authorize, (request, response) => {
-
     // Endpoint for current user to unlike a post
+    if (!request.params.postId || !request.currentUser.id){
+        response.status(403).json();
+        return;
+    }
 
+    const userId = request.currentUser.id;
+    const postId = request.params.postId;
+
+    PostModel.unlike(userId, postId, () => {
+        response.status(200).json();
+    })
 });
 
 module.exports = router;
